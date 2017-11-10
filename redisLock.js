@@ -11,7 +11,6 @@ module.exports = getLock = () => {
         let currentTime = new Date().getTime();
         let lockTime = await RedisConnect.get(key);
         if (lockTime != null && currentTime - lockTime >= 120000) {
-            errCount++;
             let oldValue = await RedisConnect.getset(key, currentTime);
             if (oldValue == lockTime) {
                 //获得锁
